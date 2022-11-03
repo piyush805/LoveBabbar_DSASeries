@@ -106,37 +106,27 @@ Node *uniqueUnsortedList2(Node *head)
 
 Node *uniqueUnsortedList3(Node *head)
 {
-    if (head == NULL || head->next == NULL)
-    {
-        // no or only single node then no duplicates
-        return head;
+    Node* current = head;
+    Node* prev = NULL;
+    
+    if(current == NULL) {
+       
+        return NULL;
     }
-    map<int_fast8_t, bool> visited;
-    Node *temp = head;
-    Node *prev = temp;
-    while (temp != NULL)
+
+    map<int, int> visited;
+    while (current != NULL)
     {
-        if (visited[temp->data])
-        {
-            // temp on duplicate node
-            Node *next_next = temp->next; // save reamining LL
-            Node *nodeToDelete = temp;
-            prev->next = next_next; // attach to reamining
-            delete nodeToDelete;    // this duplicate
-            temp = prev->next;      // move temp to this new attached node
+        if(!visited[current->data]) {
+            visited[current->data] = 1;
+            prev = current;
+            current = current->next;
         }
-        else
-        {
-            // mark this node as visited
-            visited[temp->data] = true;
-            prev = temp; // move prev forward
-            // Cant move forward if already on last node
-            if (temp->next == NULL)
-            {
-                break;
-            }
-            //else move forward temp
-            temp = temp->next;
+        else {
+            Node* nextNode = current->next;
+            prev->next = nextNode;
+            delete(current);
+            current = nextNode;
         }
     }
     return head;
