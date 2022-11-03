@@ -181,7 +181,7 @@ int main()
 
     int x = 1;
     createLoop(head, x);
-    // Print gives infinite loop: thats how we know loop is present
+    // Print gives infinite loop: thats how we know that loop is present
     
     removeLoop(head);
     print(head); // print successfully like intiial so we know loop has been removed
